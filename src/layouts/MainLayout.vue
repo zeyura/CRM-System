@@ -18,10 +18,10 @@
             </div>
         </main>
 
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large blue" href="#">
+        <div class="fixed-action-btn ">
+            <router-link class="btn-floating btn-large blue  waves-effect waves-circle waves-light_" to="/record">
                 <i class="large material-icons">add</i>
-            </a>
+            </router-link>
         </div>
     </div>
 
@@ -37,7 +37,8 @@
         },
         data: () => ({
             isSidebarOpen: true
-        })
+        }),
+
     }
 </script>
 
