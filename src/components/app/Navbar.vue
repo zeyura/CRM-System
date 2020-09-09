@@ -60,9 +60,9 @@
            }, 1000)
         },
         methods: {
-            logout() {
-               // console.log('Logout');
-                this.$router.push('/login?state=logout')
+            async logout() {
+                await this.$store.dispatch('logout');
+                this.$router.push('/login?state=logout');
             }
         },
         beforeDestroy() {

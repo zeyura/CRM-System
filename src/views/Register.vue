@@ -90,7 +90,7 @@
             agree: {checked: v => v}  //  return true ^)
         },
         methods: {
-            submitHandler() {
+            async submitHandler() {
 
                 if(this.$v.$invalid) { // if Form is in Invalid
                     this.$v.$touch();
@@ -104,9 +104,11 @@
                    // agree: this.agree
                 };
 
-               /// console.info(formData)
+                try {
+                    await this.$store.dispatch('register', formData);
+                    this.$router.push('/');
+                } catch (e){}
 
-                this.$router.push('/')
             }
         }
 
