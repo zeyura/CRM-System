@@ -36,7 +36,7 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+//firebase.analytics();  //  -- возможно заработает через  сутки
 
 // инициализируем Vue если сработала аутентификация в  файрбейз - - -
 let app;

@@ -77,7 +77,7 @@
 
         },
         methods: {
-            submitHandler() {
+            async submitHandler() {
 
                 if(this.$v.$invalid) { // if Form is in Invalid
                     this.$v.$touch();
@@ -89,10 +89,13 @@
                     password: this.password
                 }
 
-                //console.info(formData)
+                try {
+                    await this.$store.dispatch('login', formData);
+                    this.$router.push('/')
+                } catch (e) {}
 
-                this.$router.push('/')
-            }
+            },
+
         }
 
     }
