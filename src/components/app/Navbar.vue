@@ -61,8 +61,8 @@
         },
         methods: {
             logout() {
-                console.log('Logout');
-                this.$router.push('/login?message=logout')
+               // console.log('Logout');
+                this.$router.push('/login?state=logout')
             }
         },
         beforeDestroy() {

@@ -56,6 +56,8 @@
 
 <script>
     import {email, required, minLength} from 'vuelidate/lib/validators'
+    import messages from '@/utilites/messages'
+
     export default {
         name: "login",
         data: () => ({
@@ -65,6 +67,14 @@
         validations: { // после установки vuelidate /  npm install vuelidate --save
             email: {email, required},
             password: {required, minLength: minLength(6)} // min 6 symbols
+        },
+        mounted() {
+            if( messages[this.$route.query.state] ) { // if is query param   ?state=logout
+                setTimeout(() => {
+                    this.$message(messages[this.$route.query.state]);
+                }, 300)
+            }
+
         },
         methods: {
             submitHandler() {
