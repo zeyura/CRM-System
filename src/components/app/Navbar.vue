@@ -16,7 +16,7 @@
                             data-target="dropdown"
                             ref="dropdown"
                     >
-                        USER NAME
+                        {{userName}}
                         <i class="material-icons right">arrow_drop_down</i>
                     </a>
 
@@ -58,6 +58,11 @@
            this.interval = setInterval(() => {
                this.data = new Date();
            }, 1000)
+        },
+        computed: {
+            userName() {
+                return this.$store.getters.info.name;
+            }
         },
         methods: {
             async logout() {
