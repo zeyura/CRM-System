@@ -5,6 +5,7 @@ import router from './router/router'
 import store from './store/store'
 import dateFilter from './filters/date.filter'
 import messagePlugin from './utilites/message.plugin'
+import Loader from '@/components/app/Loader'
 
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
@@ -13,14 +14,14 @@ import 'materialize-css/dist/js/materialize.min'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
-
+///
 
 Vue.config.productionTip = false;
 
 Vue.use(messagePlugin);
 Vue.use(Vuelidate);
 Vue.filter('date', dateFilter); // register filter for Date -  dateFilter
-
+Vue.component('Loader', Loader);
 
 /// --  https://www.youtube.com/watch?v=CTLonYohENw&list=PLqKQF2ojwm3njNpksFCi8o-_c-9Vva_W0&index=8  - - -
 // Your web app's Firebase configuration
