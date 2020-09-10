@@ -16,7 +16,10 @@
                 :rates="currency.rates"
             />
 
-            <home-currency />
+            <home-currency
+                :rates= "currency.rates"
+                :date = "currency.date"
+            />
 
         </div>
     </div>
