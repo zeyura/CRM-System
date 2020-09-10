@@ -25,7 +25,13 @@ export default new Vuex.Store({
 
     },
     actions: {
-
+        async fetchCurrency() {
+            const key = process.env.VUE_APP_FIXER; // glob key value from .env
+            // http://data.fixer.io/api/latest?access_key=db814ef20f6412aecf87715a95c2504c  --  my Fixer Acc
+            // https://fixer.io/quickstart
+            const res = await fetch(`http://data.fixer.io/api/latest?access_key=${key}&symbols=RUB,USD,EUR,UAH`);
+            return await res.json();
+        }
     },
 
     modules: {

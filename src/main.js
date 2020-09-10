@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
 import dateFilter from './filters/date.filter'
+import currencyFilter from './filters/currency.filter'
 import messagePlugin from './utilites/message.plugin'
 import Loader from '@/components/app/Loader'
 
@@ -21,6 +22,8 @@ Vue.config.productionTip = false;
 Vue.use(messagePlugin);
 Vue.use(Vuelidate);
 Vue.filter('date', dateFilter); // register filter for Date -  dateFilter
+Vue.filter('currency', currencyFilter); // register filter for currencies -  currencyFilter
+
 Vue.component('Loader', Loader);
 
 /// --  https://www.youtube.com/watch?v=CTLonYohENw&list=PLqKQF2ojwm3njNpksFCi8o-_c-9Vva_W0&index=8  - - -
