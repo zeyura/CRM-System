@@ -4,7 +4,7 @@
         <div class="page-title">
             <h3>Счет</h3>
 
-            <button class="btn waves-effect waves-light btn-small">
+            <button class="btn refresh-btn waves-effect waves-light btn-small" :class="{active:refreshing}" @click="refresh">
                 <i class="material-icons">refresh</i>
             </button>
         </div>
@@ -33,21 +33,49 @@
 
     export default {
         name: 'Home',
+        components: {
+            HomeBill, HomeCurrency
+        },
         data: () => ({
             loading: true,
+            refreshing: false,
             currency: null
         }),
         async mounted() {
               this.currency = await this.$store.dispatch('fetchCurrency');
-              //console.log(this.currency)
-              this.loading  = false;
+              setTimeout(() => {
+                  this.loading  = false;
+              }, 500);
         },
-        components: {
-            HomeBill, HomeCurrency
+        methods: {
+            async refresh() {
+                this.loading  = true; this.refreshing = true;
+                this.currency = await this.$store.dispatch('fetchCurrency');
+                setTimeout(() => {
+                    this.loading  = false; this.refreshing = false;
+                }, 200);
+            }
         }
+
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .refresh-btn {
+        &.active {
+            i[class*=icon] {
+                animation: ref-rotate .8s infinite linear;
+            }
 
+        }
+    }
+    
+    @keyframes ref-rotate {
+        from {
+            transform: rotate(0);
+        }
+        to  {
+            transform: rotate(360deg);
+        }
+    }
 </style>

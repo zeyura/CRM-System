@@ -3,7 +3,7 @@
         <div class="card orange darken-1 bill-card">
             <div class="card-content white-text">
                 <div class="card-header">
-                    <span class="card-title" style="margin-bottom: 17px">Курс валют</span>
+                    <span class="card-title" style="margin-bottom: 26px">Курс валют</span>
                 </div>
                 <table>
                     <thead>
