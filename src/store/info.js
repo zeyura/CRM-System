@@ -10,7 +10,21 @@ export default {
             try {
                 const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val();
                 commit('setInfo', info);
-            } catch (e) {}
+            } catch (e) {
+                commit('setError',e);
+                throw e;
+            }
+        },
+        async updateInfo({dispatch, commit, getters}, toUpdate) {
+            const uid = await dispatch('getUid'); // getUid - method in auth.js
+            try {
+                const data = {...getters.info, ...toUpdate};
+                await firebase.database().ref(`/users/${uid}/info`).update(data);
+                commit('setInfo', data);
+            } catch (e) {
+                commit('setError',e);
+                throw e;
+            }
         }
     },
     mutations: {
