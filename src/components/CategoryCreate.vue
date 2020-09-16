@@ -45,7 +45,6 @@
 
 <script>
     import {required, minValue} from 'vuelidate/lib/validators'
-    //import messages from '@/utilites/messages'
 
     export default {
         name: "category-create",
@@ -82,8 +81,6 @@
 
                    // this.$router.push('/')
                 } catch (e) {}
-
-
 
             }
         }

@@ -15,7 +15,15 @@
                 </div>
                 <div class="col s12 m6">
 
-                    <category-edit />
+                    <category-edit
+                        v-if="categories.length"
+                        :categories="categories"
+                        :key='categories.length + updateCounter'
+                        @updated="updateCategory"
+                    />
+                    <!-- выше :key для динамичного обновления селекта Category-Edit при обновлении категории любой !!  -->
+
+                    <p v-else>Категорий еще нет</p>
 
                 </div>
             </div>
@@ -31,17 +39,23 @@
         name: "categories",
         data: () => ({
             categories: [],
-            loading: true
+            loading: true,
+            updateCounter: 0
         }),
         components: { CategoryEdit, CategoryCreate },
         async mounted() {
             this.categories = await this.$store.dispatch('fetchCategories');
             this.loading = false;
-            console.log( this.categories );
         },
         methods: {
             addNewCategory(category) {
                 this.categories.push(category);
+            },
+            updateCategory(cat) {
+                const i = this.categories.findIndex( c => c.id === cat.id);
+                this.categories[i].title = cat.title;
+                this.categories[i].limit = cat.limit;
+                this.updateCounter++
             }
         }
 
