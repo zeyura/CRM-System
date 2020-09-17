@@ -19,7 +19,9 @@
         </main>
 
         <div class="fixed-action-btn ">
-            <router-link class="btn-floating btn-large blue  waves-effect waves-circle waves-light_" to="/record">
+            <router-link class="btn-floating btn-large blue  waves-effect waves-circle waves-light_" to="/record"
+                    v-tooltip="'Создать новую запись'"
+            >
                 <i class="large material-icons">add</i>
             </router-link>
         </div>
