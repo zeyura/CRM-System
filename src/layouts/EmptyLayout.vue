@@ -15,7 +15,6 @@
         },
         watch: {
             error(fbError) { // наблюдаем за error из computed
-               // console.log( fbError );
                 this.$error(messages[fbError.code] || 'Что-то пошло не так')
             }
         }
