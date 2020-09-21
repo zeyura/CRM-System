@@ -39,7 +39,20 @@ export default {
                 commit('setError', e); // обработчик ошибок в store.js
                 throw e
             }
+        },
+
+        async fetchCategoryByID({commit, dispatch}, id) {
+            try {
+                const uid = await dispatch('getUid'); // getUid - method in auth.js
+                const category = (await firebase.database().ref(`/users/${uid}/categories`).child(id).once('value')).val() || {};
+                return {...category,id};
+            }
+            catch (e) {
+                commit('setError', e); // обработчик ошибок в store.js
+                throw e
+            }
         }
+
     },
     mutations: {
 
