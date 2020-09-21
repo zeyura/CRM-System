@@ -8,6 +8,7 @@ import currencyFilter from './filters/currency.filter'
 import messagePlugin from './utilites/message.plugin'
 import Loader from '@/components/app/Loader'
 import tooltipDirective from '@/directives/tooltip'
+import Paginate from 'vuejs-paginate'
 
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
@@ -27,6 +28,7 @@ Vue.filter('currency', currencyFilter); // register filter for currencies -  cur
 Vue.directive('tooltip', tooltipDirective);
 
 Vue.component('Loader', Loader);
+Vue.component('Paginate', Paginate);
 
 /// --  https://www.youtube.com/watch?v=CTLonYohENw&list=PLqKQF2ojwm3njNpksFCi8o-_c-9Vva_W0&index=8  - - -
 // Your web app's Firebase configuration
