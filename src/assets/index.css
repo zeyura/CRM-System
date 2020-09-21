@@ -7,3 +7,6 @@
 }
 .fixed-action-btn:hover { opacity:1;  }
 
+.pagination { margin: 30px auto }
+.pagination li:first-child a { padding-left: 0 }
+.pagination li:last-child a  { padding-right:0 }
