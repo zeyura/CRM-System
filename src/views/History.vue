@@ -74,6 +74,7 @@
                     }
                 }));
 
+                // https://www.chartjs.org/docs/latest/charts/doughnut.html#styling
                 this.renderChart(
                     {
                         //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -89,27 +90,41 @@
                                 },0);
                             }),
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.3)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.12)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)',
-                                'rgba(25, 159, 84, 0.25)'
+                                'rgba(255, 99, 132, 0.6)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(25, 159, 84, 0.45)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 200, 192, 0.45)',
+                                'rgba(153, 102, 255, 0.4)',
+                                'rgba(255, 159, 64, 0.4)',
+
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 1)',
                                 'rgba(54, 162, 235, 1)',
+                                'rgba(25, 159, 84, .9)',
                                 'rgba(255, 206, 86, 1)',
                                 'rgba(75, 192, 192, 1)',
                                 'rgba(153, 102, 255, 1)',
                                 'rgba(255, 159, 64, 1)',
-                                'rgba(25, 159, 84, .8)'
+
                             ],
-                            borderWidth: .2
+                           // backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: .1,
+                            hoverBorderWidth: .75,
+                           // borderAlign: 'inner'
                         }]
                     },
-                    {} // options
+                    {
+                        cutoutPercentage: 50, // default 0
+                        circumference: 1.96 * Math.PI, // default 2 * Math.PI
+                        rotation: -.5 * Math.PI,
+                        animation: {
+                            animateRotate: true,
+                            animateScale:  true
+                        },
+
+                    } // options
                 );
                 //renderChart END
             }
