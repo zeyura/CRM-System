@@ -2,18 +2,30 @@
 
     <div>
         <div class="page-title">
-            <h3>Профиль</h3>
+            <h3>{{'profileTitle' | localize}}</h3>
         </div>
 
-        <form class="form">
+        <div class="switch">
+            <label>
+                English
+                <input type="checkbox" v-model="isLocsleRU">
+                <span class="lever"></span>
+                Русский
+            </label>
+        </div>
+
+        <form class="form" @submit.prevent="submitHandler">
             <div class="input-field">
                 <input
-                        id="description"
+                        v-model="name"
+                        id="name"
                         type="text"
+                        :class="{invalid: ($v.name.$dirty && !$v.name.required) }"
                 >
-                <label for="description">Имя</label>
-                <span
-                        class="helper-text invalid">name</span>
+                <label for="name">Имя</label>
+                <small class="helper-text invalid"
+                       v-if="$v.name.$dirty && !$v.name.required"
+                >Введите имя</small>
             </div>
 
             <button class="btn waves-effect waves-light" type="submit">
@@ -26,11 +38,58 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
+    import {required} from 'vuelidate/lib/validators'
+    //import messages from '@/utilites/messages'
     export default {
-        name: "profile"
+        name: "profile",
+        data: () => ({
+            name: '',
+            isLocsleRU: true,
+
+        }),
+        validations: {
+            name: {required}
+        },
+        mounted() {
+            this.name = this.info.name;
+            setTimeout(() => {
+                M.updateTextFields()
+            },0);
+
+            this.isLocsleRU = this.info.locale === 'ru-RU';
+        },
+        computed: {
+            ...mapGetters(['info']),
+
+        },
+        methods: {
+            ...mapActions(['updateInfo']),
+            async submitHandler() {
+
+                if(this.$v.$invalid) {
+                    this.$v.$touch();
+                    return
+                }
+
+                try {
+                    await this.updateInfo({
+                        name: this.name,
+                        locale: this.isLocsleRU ? 'ru-RU' : 'en-US'
+                    });
+                } catch (e) {}
+
+            },
+
+        }
+
     }
 </script>
 
 <style scoped>
+
+    .switch {
+        margin: 0 0 30px;
+    }
 
 </style>

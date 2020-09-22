@@ -5,7 +5,7 @@
             <h3>История записей</h3>
         </div>
 
-        <div class="history-chart">
+        <div class="history-chart" v-if="records.length">
             <canvas ref="canvas"></canvas>
         </div>
 
@@ -19,7 +19,7 @@
             />
 
             <Paginate
-                    v-if="!showAllinPage"
+                    v-if="!showAllinPage && records.length > pageSize"
                     v-model="page"
                     :page-count='pageCount'
                     :click-handler="pageChangeHandler"
@@ -30,7 +30,7 @@
             >
             ></Paginate>
 
-            <div v-if="!showAllinPage">
+            <div v-if="!showAllinPage && records.length > pageSize">
                 <a @click.prevent="showAllItems" style="cursor: pointer">Показать все</a>
             </div>
 
@@ -58,9 +58,10 @@
             //const records   = await this.$store.dispatch('fetchRecords');
             const categories = await this.$store.dispatch('fetchCategories');
 
+            this.loading = false;
+
             this.setup(categories);
 
-            this.loading = false;
         },
         methods: {
             setup(categories) {
@@ -75,6 +76,7 @@
                 }));
 
                 // https://www.chartjs.org/docs/latest/charts/doughnut.html#styling
+                //   https://vue-chartjs.org/ru/guide/
                 this.renderChart(
                     {
                         //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -135,5 +137,9 @@
 </script>
 
 <style scoped lang="scss">
+
+    .history-chart {
+        margin: 30px auto;
+    }
 
 </style>

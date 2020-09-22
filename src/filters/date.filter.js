@@ -1,3 +1,5 @@
+import store from '@/store/store'
+
 export default function dateFilter(val, format = 'date') {
     // format = 'date' or 'time' or 'datetime'
 
@@ -19,5 +21,7 @@ export default function dateFilter(val, format = 'date') {
     //
     // для datetime сработают оба if
 
-    return new Intl.DateTimeFormat('ru-RU', options).format(new Date(val));
+    const locale = store.getters.info.locale || 'ru-RU';
+
+    return new Intl.DateTimeFormat(locale, options).format(new Date(val));
 }
