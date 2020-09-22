@@ -10,8 +10,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        error: null,
-
+        error: null
     },
     mutations: {
         setError(state, error) {
@@ -23,8 +22,7 @@ export default new Vuex.Store({
 
     },
     getters: {
-        error: s => s.error ,
-
+        error: s => s.error
     },
     actions: {
         async fetchCurrency() {

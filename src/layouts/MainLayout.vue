@@ -8,6 +8,7 @@
 
         <Sidebar
             :isOpen="isSidebarOpen"
+            :key="locale"
         />
 
         <main class="app-content"  :class="{'full': !isSidebarOpen}">
@@ -49,6 +50,12 @@
         computed: {
             error() {
                 return this.$store.getters.error;
+            },
+            locale() {
+                // комп свойство locale для сайдбара
+                // если меняется язык тое  локаль то  сайдбар будет сразу перерендериваться
+                // благодаря хаку  :key="locale"
+                return this.$store.getters.info.locale;
             }
         },
         watch: {

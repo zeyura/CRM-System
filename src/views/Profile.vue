@@ -22,14 +22,14 @@
                         type="text"
                         :class="{invalid: ($v.name.$dirty && !$v.name.required) }"
                 >
-                <label for="name">Имя</label>
+                <label for="name">{{'name' | localize}}</label>
                 <small class="helper-text invalid"
                        v-if="$v.name.$dirty && !$v.name.required"
-                >Введите имя</small>
+                >{{'message_EnterName' | localize}}</small>
             </div>
 
             <button class="btn waves-effect waves-light" type="submit">
-                Обновить
+                {{'btn_update' | localize}}
                 <i class="material-icons right">send</i>
             </button>
         </form>
