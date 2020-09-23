@@ -2,7 +2,7 @@
 
     <div>
         <div class="page-title">
-            <h3>Категории</h3>
+            <h3>{{'categoriesTitle' | localize}}</h3>
         </div>
 
         <section>
@@ -23,7 +23,7 @@
                     />
                     <!-- выше :key для динамичного обновления селекта Category-Edit при обновлении категории любой !!  -->
 
-                    <p v-else>Категорий еще нет</p>
+                    <p v-else>{{'noCategories' | localize}}</p>
 
                 </div>
             </div>

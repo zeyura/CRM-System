@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div style="margin-bottom: 3rem;">
         <div class="page-subtitle">
-            <h4>Редактировать</h4>
+            <h4>{{'editTitle' | localize}}</h4>
         </div>
 
         <form @submit.prevent="submitHandler">
@@ -15,41 +15,41 @@
                         {{cat.title}}
                     </option>
                 </select>
-                <label>Выберите категорию</label>
+                <label>{{'selectCategory' | localize}}</label>
             </div>
 
-            <div class="input-field">
+            <div class="input-field" style="margin-top: 1.5rem">
                 <input
                         id="categ-create-name"
                         type="text"
                         v-model="title"
                         :class="{invalid: $v.title.$dirty && !$v.title.required }"
                 >
-                <label for="categ-create-name">Название</label>
+                <label for="categ-create-name">{{'categoryName' | localize}}</label>
                 <span class="helper-text invalid"
                       v-if="$v.title.$dirty && !$v.title.required"
                 >
-                    Введите название
+                    {{'message_enterCategoryName' | localize}}
                 </span>
             </div>
 
-            <div class="input-field">
+            <div class="input-field" style="margin-top: 1.5rem">
                 <input
                         id="categ-create-limit"
                         type="number"
                         v-model.number="limit"
                         :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
                 >
-                <label for="categ-create-limit">Лимит</label>
+                <label for="categ-create-limit">{{'limit' | localize}}</label>
                 <span class="helper-text invalid"
                       v-if="$v.limit.$dirty && !$v.limit.minValue"
                 >
-                    Минимальная сумма {{$v.limit.$params.minValue.min}} RUB
+                    {{'message_minSum' | localize}} {{$v.limit.$params.minValue.min}} RUB
                 </span>
             </div>
 
             <button class="btn waves-effect waves-light" type="submit">
-                Обновить
+                {{'btn_update' | localize}}
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -66,7 +66,8 @@
             current: null,
             select: null,
             title: '',
-            limit: 100
+            limit: 100,
+            Locale: ''
         }),
         validations: { // после установки vuelidate /  npm install vuelidate --save
             title: {required},
@@ -86,6 +87,7 @@
             this.limit   = limit;
         },
         mounted() {
+            this.Locale = this.$store.getters.info.locale;
             this.select = M.FormSelect.init(this.$refs.select, {});
             M.updateTextFields();
         },
@@ -105,7 +107,12 @@
                     };
 
                     await this.$store.dispatch('updateCategory', categoryData);
-                    this.$message('Категория успешно обновлена');
+                    if( this.Locale === 'ru-RU' ) {
+                        this.$message('Категория успешно обновлена');
+                    } else if( this.Locale === 'en-US' ) {
+                        this.$message('Category updated successfully');
+                    }
+
                     this.$emit('updated', categoryData)
 
                 } catch (e) {}

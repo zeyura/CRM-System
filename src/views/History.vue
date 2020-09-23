@@ -2,7 +2,7 @@
 
     <div>
         <div class="page-title">
-            <h3>История записей</h3>
+            <h3>{{'historyTitle' | localize}}</h3>
         </div>
 
         <div class="history-chart" v-if="records.length">
@@ -12,7 +12,7 @@
         <section>
 
             <loader v-if="loading" />
-            <p class="center" v-else-if="!records.length">Записей еще нет. <router-link to="/record">Добавить запись</router-link> </p>
+            <p class="center" v-else-if="!records.length">{{'noRecords' | localize}}. <router-link to="/record">{{'addRecords' | localize}}</router-link> </p>
             <HistoryTable
                 v-else
                 :records='items'
@@ -23,15 +23,15 @@
                     v-model="page"
                     :page-count='pageCount'
                     :click-handler="pageChangeHandler"
-                    :prev-text="'Назад'"
-                    :next-text="'Вперед'"
+                    :prev-text="prev"
+                    :next-text="next"
                     :container-class="'pagination'"
                     :page-class="'waves-effect'"
             >
             ></Paginate>
 
             <div v-if="!showAllinPage && records.length > pageSize">
-                <a @click.prevent="showAllItems" style="cursor: pointer">Показать все</a>
+                <a @click.prevent="showAllItems" style="cursor: pointer">{{'showAll' | localize}}</a>
             </div>
 
         </section>
@@ -51,7 +51,11 @@
         extends: Pie,
         data: () => ({
             loading: true,
-            records: []
+            records: [],
+            income: 'income',
+            outcome:'outcome',
+            prev: 'Prev',
+            next: 'Next'
         }),
         async mounted() {
             this.records = await this.$store.dispatch('fetchRecords');
@@ -59,6 +63,13 @@
             const categories = await this.$store.dispatch('fetchCategories');
 
             this.loading = false;
+
+            if( this.$store.getters.info.locale === 'ru-RU' ) {
+                this.income  = "Доход";
+                this.outcome = 'Расход';
+                this.prev = 'Назад';
+                this.next = 'Вперед'
+            }
 
             this.setup(categories);
 
@@ -70,7 +81,7 @@
                         ...record,
                         categoryName: categories.find(c => c.id === record.categoryID).title,
                         typeClass: record.type === 'income' ? 'green' : 'red',
-                        typeText:  record.type === 'income' ? 'Доход' : 'Расход',
+                        typeText:  record.type === 'income' ? this.income : this.outcome,
 
                     }
                 }));
@@ -131,7 +142,9 @@
                 //renderChart END
             }
         },
+        created() {
 
+        }
 
     }
 </script>

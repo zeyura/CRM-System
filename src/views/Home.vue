@@ -2,7 +2,7 @@
 
     <div class="home">
         <div class="page-title">
-            <h3>Счет</h3>
+            <h3>{{'homeTitle' | localize}}</h3>
 
             <button class="btn refresh-btn waves-effect waves-light btn-small" :class="{active:refreshing}" @click="refresh">
                 <i class="material-icons">refresh</i>

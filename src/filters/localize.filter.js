@@ -5,7 +5,7 @@ import en from '@/locales/en.json'
 const locales = {
     'ru-RU': ru,
     'en-US': en
-}
+};
 
 export default function localizeFilter(key) {
     const locale = store.getters.info.locale || 'ru-RU';

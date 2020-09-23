@@ -2,7 +2,7 @@
 
     <div>
         <div class="breadcrumb-wrap">
-            <router-link to="/history" class="breadcrumb">История</router-link>
+            <router-link to="/history" class="breadcrumb">{{'menu_History' | localize}}</router-link>
             <a class="breadcrumb">
                 {{breadcrumbType}}
             </a>
@@ -20,9 +20,9 @@
                         }"
                 >
                     <div class="card-content white-text">
-                        <p>ОПИСАНИЕ: {{record.description}}</p>
-                        <p>СУММА: {{record.amount | currency}}</p>
-                        <p>КАТЕГОРИЯ: {{record.category}}</p>
+                        <p>{{'description' | localize}}: {{record.description}}</p>
+                        <p>{{'sum' | localize}}: {{record.amount | currency}}</p>
+                        <p>{{'category' | localize}}: {{record.category}}</p>
 
                         <br>
                         <small>{{record.date | date('datetime')}}</small>
@@ -53,7 +53,13 @@
                 ...record,
                 category: category.title
             };
-            this.breadcrumbType = record.type === 'income' ? 'Доход' : 'Расход';
+
+            if( this.$store.getters.info.locale === 'ru-RU' ) {
+                this.breadcrumbType = record.type === 'income' ? 'Доход' : 'Расход';
+            }
+            if( this.$store.getters.info.locale === 'en-US' ) {
+                this.breadcrumbType = record.type === 'income' ? 'Income' : 'Outcome';
+            }
 
             this.loading = false;
         }

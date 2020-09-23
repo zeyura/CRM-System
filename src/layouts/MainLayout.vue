@@ -21,7 +21,7 @@
 
         <div class="fixed-action-btn ">
             <router-link class="btn-floating btn-large blue  waves-effect waves-circle waves-light_" to="/record"
-                    v-tooltip="'Создать новую запись'"
+                    v-tooltip="newRecTooltip"
             >
                 <i class="large material-icons">add</i>
             </router-link>
@@ -40,12 +40,14 @@
             Navbar, Sidebar
         },
         data: () => ({
-            isSidebarOpen: true
+            isSidebarOpen: true,
+            newRecTooltip: 'Создать новую запись'
         }),
         async mounted() {
             if( !Object.keys(this.$store.getters.info).length ) { //  if  store.info empty   -->  {}
                 await this.$store.dispatch('fetchInfo');
             }
+
         },
         computed: {
             error() {
@@ -63,8 +65,8 @@
                 this.$error(messages[fbError.code] || 'Что-то пошло не так')
             }
         },
-        methods: {
-
+        created() {
+            if( this.locale === 'en-US' ) this.newRecTooltip = 'Create new record';
         }
 
     }

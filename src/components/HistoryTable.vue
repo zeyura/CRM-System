@@ -4,11 +4,11 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Сумма</th>
-            <th>Дата</th>
-            <th>Категория</th>
-            <th>Тип</th>
-            <th>Открыть</th>
+            <th>{{'sum' | localize}}</th>
+            <th>{{'date' | localize}}</th>
+            <th>{{'category' | localize}}</th>
+            <th>{{'type' | localize}}</th>
+            <th>{{'open' | localize}}</th>
         </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
             </td>
             <td>
                 <button
-                        v-tooltip="'Просмотр записи'"
+                        v-tooltip="tooltip"
                         class="btn-small btn"
                         @click="$router.push('/detail-record/' + r.id)"
                 >
@@ -43,6 +43,13 @@
                 required: true,
                 type: Array
             }
+        },
+        data: () => ({
+            tooltip: ''
+        }),
+        created() {
+            if( this.$store.getters.info.locale === 'ru-RU' ) this.tooltip = 'Просмотр записи';
+            if( this.$store.getters.info.locale === 'en-US' ) this.tooltip = 'Viewing a recording';
         }
 
     }

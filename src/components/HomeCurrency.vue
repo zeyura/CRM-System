@@ -3,14 +3,14 @@
         <div class="card orange darken-1 bill-card">
             <div class="card-content white-text">
                 <div class="card-header">
-                    <span class="card-title" style="margin-bottom: 26px">Курс валют</span>
+                    <span class="card-title" style="margin-bottom: 26px">{{'exchangeRates' | localize}}</span>
                 </div>
                 <table>
                     <thead>
                     <tr>
-                        <th>Валюта</th>
-                        <th>Курс</th>
-                        <th>Дата</th>
+                        <th>{{'valute' | localize}}</th>
+                        <th>{{'rate' | localize}}</th>
+                        <th>{{'date' | localize}}</th>
                     </tr>
                     </thead>
                     <tbody>

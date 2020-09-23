@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div style="margin-bottom: 3rem;">
         <div class="page-subtitle">
-            <h4>Создать</h4>
+            <h4>{{'categoryCreate' | localize}}</h4>
         </div>
 
         <form @submit.prevent="submitHandler">
@@ -12,11 +12,11 @@
                         v-model="title"
                         :class="{invalid: $v.title.$dirty && !$v.title.required }"
                 >
-                <label for="categ-create-name">Название</label>
+                <label for="categ-create-name">{{'categoryName' | localize}}</label>
                 <span class="helper-text invalid"
                     v-if="$v.title.$dirty && !$v.title.required"
                 >
-                    Введите название
+                    {{'message_enterCategoryName' | localize}}
                 </span>
             </div>
 
@@ -27,16 +27,16 @@
                         v-model.number="limit"
                         :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
                 >
-                <label for="categ-create-limit">Лимит</label>
+                <label for="categ-create-limit">{{'limit' | localize}}</label>
                 <span class="helper-text invalid"
                     v-if="$v.limit.$dirty && !$v.limit.minValue"
                 >
-                    Минимальная сумма {{$v.limit.$params.minValue.min}} RUB
+                    {{'message_minSum' | localize}} {{$v.limit.$params.minValue.min}} RUB
                 </span>
             </div>
 
             <button class="btn waves-effect waves-light" type="submit">
-                Создать
+                {{'btn_create' | localize}}
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -50,7 +50,8 @@
         name: "category-create",
         data: () => ({
             title: '',
-            limit: 100
+            limit: 100,
+            Locale: ''
         }),
 
         validations: { // после установки vuelidate /  npm install vuelidate --save
@@ -58,6 +59,7 @@
             limit: {minValue: minValue(100)} // min 1 RUB
         },
         mounted() {
+            this.Locale = this.$store.getters.info.locale;
             M.updateTextFields();  // апдейтим чтоб не накладівались плейсхолдеры и титлы в инпутах )
         },
         methods: {
@@ -76,7 +78,11 @@
                     this.title = '';
                     this.limit = 100;
                     this.$v.$reset(); // сбросили состояние формы   для валидатора
-                    this.$message('Категория была создана');
+                    if( this.Locale === 'ru-RU' ) {
+                        this.$message('Категория была создана');
+                    } else if( this.Locale === 'en-US' ) {
+                        this.$message('Category was created');
+                    }
                     this.$emit('created', category);
 
                    // this.$router.push('/')

@@ -2,7 +2,7 @@
 
     <div>
         <div class="page-title">
-            <h3>Новая запись</h3>
+            <h3>{{'recordTitle' | localize}}</h3>
         </div>
 
         <loader v-if="loading" />
@@ -18,7 +18,7 @@
                         {{cat.title}}
                     </option>
                 </select>
-                <label>Выберите категорию</label>
+                <label>{{'selectCategory' | localize}}</label>
             </div>
 
             <p>
@@ -30,7 +30,7 @@
                             value="income"
                             v-model="radioType"
                     />
-                    <span>Доход</span>
+                    <span>{{'income' | localize}}</span>
                 </label>
             </p>
 
@@ -43,7 +43,7 @@
                             value="outcome"
                             v-model="radioType"
                     />
-                    <span>Расход</span>
+                    <span>{{'outcome' | localize}}</span>
                 </label>
             </p>
 
@@ -52,13 +52,18 @@
                         id="amount"
                         type="number"
                         v-model.number="amount"
-                        :class="{invalid: $v.amount.$dirty && !$v.amount.minValue}"
+                        :class="{invalid: ($v.amount.$dirty && !$v.amount.minValue) || ($v.amount.$dirty && !$v.amount.required) }"
                 >
-                <label for="amount">Сумма</label>
+                <label for="amount">{{'sum' | localize}}</label>
                 <span class="helper-text invalid"
                       v-if="$v.amount.$dirty && !$v.amount.minValue"
                 >
-                    Минимальная сумма {{$v.amount.$params.minValue.min}} RUB
+                    {{'message_minSum' | localize}} {{$v.amount.$params.minValue.min}} RUB
+                </span>
+                <span class="helper-text invalid"
+                      v-if="$v.amount.$dirty && !$v.amount.required"
+                >
+                    {{'message_EmptyField' | localize}}
                 </span>
             </div>
 
@@ -69,16 +74,16 @@
                         v-model="description"
                         :class="{invalid: $v.description.$dirty && !$v.description.required}"
                 >
-                <label for="description">Описание</label>
+                <label for="description">{{'description' | localize}}</label>
                 <span class="helper-text invalid"
                       v-if="$v.description.$dirty && !$v.description.required"
                 >
-                    Введите описание
+                    {{'message_enterDescription' | localize}}
                 </span>
             </div>
 
             <button class="btn waves-effect waves-light" type="submit">
-                Создать
+                {{'btn_create' | localize}}
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -97,13 +102,16 @@
             category: null,
             radioType: 'income',
             amount: 1,
-            description: ''
+            description: '',
+            Locale: ''
         }),
         validations: { // после установки vuelidate /  npm install vuelidate --save
             description: {required},
-            amount: {minValue: minValue(1)} // min 1 RUB
+            amount: {required, minValue: minValue(1)} // min 1 RUB
         },
         async mounted() {
+            this.Locale = this.info.locale;
+
             this.categories = await this.$store.dispatch('fetchCategories');
            //console.log( this.categories )
 
@@ -150,7 +158,11 @@
 
                         await this.$store.dispatch('updateInfo', {bill});
 
-                        this.$message(`Запись добавлена. Счет: ${bill} RUB`);
+                        if( this.Locale === 'ru-RU' ) {
+                            this.$message(`Запись добавлена. Счет: ${bill} RUB`);
+                        } else if( this.Locale === 'en-US' ) {
+                            this.$message(`The entry has been added. Score: ${bill} RUB`);
+                        }
 
                         this.$v.$reset(); // обнулить форму
                         this.amount = 1;
@@ -160,7 +172,11 @@
                         this.$error(e);
                     }
                 } else {
-                    this.$message(`Нехватка средств на счете (${this.amount - this.info.bill} RUB)`)
+                    if( this.Locale === 'ru-RU' ) {
+                        this.$message(`Нехватка средств на счете (${this.amount - this.info.bill} RUB)`)
+                    } else if( this.Locale === 'en-US' ) {
+                        this.$message(`Lack of funds in the account (${this.amount - this.info.bill} RUB)`)
+                    }
                 }
 
             }
