@@ -2,8 +2,8 @@
     <nav class="navbar grey lighten-5">
         <div class="nav-wrapper">
             <div class="navbar-left">
-                <a href="#" @click.prevent="$emit('sidebarToggle')" >
-                    <i class="material-icons black-text">dehaze</i>
+                <a class="trigger" @click.prevent="$emit('sidebarToggle')" >
+                    <span></span><span></span><span></span>
                 </a>
                 <span class="black-text datetimer">{{data | date('datetime')}}</span>
             </div>
@@ -79,6 +79,24 @@
 
 <style lang="scss" scoped>
     .navbar { box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.07), 0 1px 5px 0 rgba(0,0,0,0.1); position: fixed }
+
+    .trigger {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        margin-right: 28px;
+
+        span {
+            display: block;
+            background-color: #333;
+            width: 24px; height: 3px;
+            margin: 2px 0;
+
+            &:nth-child(2) {
+                width:20px;
+            }
+        }
+    }
 
     @media (max-width: 479px) {
         .navbar {

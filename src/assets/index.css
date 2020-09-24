@@ -3,7 +3,7 @@
 
 
 .fixed-action-btn {
-    right: 25px; bottom: 25px; opacity: .9; transition: .2s;
+    right: 25px; bottom: 25px; opacity: .8; transition: .2s;
 }
 .fixed-action-btn:hover { opacity:1;  }
 
@@ -91,4 +91,20 @@ span.badge { border-radius: 3px }
 }
 .progress {
     background-color: #d5efed;
+}
+
+html {
+    color: #333;
+}
+
+
+@media (max-width: 700px) {
+    .auth-card {
+        width: 400px;
+    }
+}
+@media (max-width: 479px) {
+    .auth-card {
+        width: 320px;
+    }
 }

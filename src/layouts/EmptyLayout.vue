@@ -1,5 +1,5 @@
 <template>
-    <div class="grey darken-1 empty-layout">
+    <div class="empty-layout">
         <router-view/>
     </div>
 </template>
@@ -22,5 +22,10 @@
 </script>
 
 <style scoped>
-
+    .empty-layout {
+        background-color: whitesmoke;
+    }
+    .card {
+        margin-top: 0;
+    }
 </style>

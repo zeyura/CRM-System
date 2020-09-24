@@ -6,7 +6,7 @@
         </div>
 
         <loader v-if="loading" />
-        <p class="center" v-else-if="!categories.length">Категорий пока нет. <router-link to="/categories">Добавить категорию</router-link> </p>
+        <p class="center" v-else-if="!categories.length">{{'noCategories' | localize}}. <router-link to="/categories">{{'addCategory' | localize}}</router-link> </p>
         <form v-else class="form" @submit.prevent="submitHandler">
             <div class="input-field" >
                 <select ref="select" v-model="category">

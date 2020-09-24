@@ -104,12 +104,12 @@
                             }),
                             backgroundColor: [
                                 'rgba(92, 107, 192, 1)',
-                                'rgba(92, 107, 192, 0.85)',
-                                'rgba(92, 107, 192, 0.7)',
-                                'rgba(92, 107, 192, 0.55)',
-                                'rgba(92, 107, 192, 0.4)',
-                                'rgba(92, 107, 192, 0.25)',
-                                'rgba(92, 107, 192, 0.15)',
+                                'rgba(92, 107, 192, 0.8)',
+                                'rgba(92, 107, 192, 0.63)',
+                                'rgba(92, 107, 192, 0.5)',
+                                'rgba(92, 107, 192, 0.35)',
+                                'rgba(92, 107, 192, 0.22)',
+                                'rgba(92, 107, 192, 0.14)',
                                 'rgba(92, 107, 192, 0.075)',
 
                             ],
@@ -130,7 +130,7 @@
                         }]
                     },
                     {
-                        cutoutPercentage: 50, // default 0
+                        cutoutPercentage: 44, // default 0
                         circumference: 1.96 * Math.PI, // default 2 * Math.PI
                         rotation: -.5 * Math.PI,
                         animation: {

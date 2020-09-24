@@ -1,16 +1,20 @@
 {
   "homeTitle": "Счет",
+  "historyTitle": "История записей",
+  "recordTitle": "Новая запись",
+  "planningTitle": "Планирование",
+  "editTitle": "Редактировать",
+  "categoriesTitle": "Категории",
+  "profileTitle": "Профиль",
+  "registerTitle": "Зарегистрироваться",
+  "loginTitle": "Войти в систему",
+
   "billValute": "Счет в валюте",
   "exchangeRates": "Курс валют",
   "valute": "Валюта",
   "rate": "Курс",
-
-  "historyTitle": "История записей",
   "noRecords": "Записей еще нет",
   "addRecords": "Добавить запись",
-
-
-  "recordTitle": "Новая запись",
   "income": "Доход",
   "outcome": "Расход",
   "sum": "Сумма",
@@ -19,40 +23,29 @@
   "type": "Тип",
   "open": "Открыть",
   "showAll": "Показать все",
-
   "description": "Описание",
-  "message_enterDescription": "введите описание",
-
-  "planningTitle": "Планирование",
   "of": "из",
 
-  "editTitle": "Редактировать",
   "addCategory": "Добавить категорию",
   "selectCategory": "Выберите категорию",
-  "categoriesTitle": "Категории",
   "noCategories": "Категорий еще нет",
   "categoryCreate": "Создать",
   "categoryName": "Название",
 
   "limit": "Лимит",
-
-  "registerTitle": "Зарегистрироваться",
   "ImAgree": "Я согласен с правилами",
   "haveAccount": "Уже есть аккаунт?",
-
-  "loginTitle": "Войти в систему",
   "password": "Пароль",
   "noAccount": "Нет аккаунта?",
   "register": "Зарегистрироваться",
-  "profileTitle": "Профиль",
   "name": "Имя",
-
   "logout": "Выйти",
   "profile": "Профиль",
 
   "message_EnterName": "Введите имя",
   "message_EnterYourName": "Введите ваше имя",
   "message_enterCategoryName": "введите название",
+  "message_enterDescription": "введите описание",
   "message_minSum": "минимальная сумма ",
   "message_EmptyField": "поле не должно быть пустым",
   "message_Email": "введите коректный Email",
