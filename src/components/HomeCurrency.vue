@@ -1,7 +1,7 @@
 <template>
-    <div class="col s12 m6 l8">
-        <div class="card orange darken-1 bill-card">
-            <div class="card-content white-text">
+    <div class="col s12 l8">
+        <div class="card amber lighten-3 bill-card">
+            <div class="card-content ">
                 <div class="card-header">
                     <span class="card-title" style="margin-bottom: 26px">{{'exchangeRates' | localize}}</span>
                 </div>

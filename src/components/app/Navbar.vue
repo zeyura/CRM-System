@@ -1,14 +1,14 @@
 <template>
-    <nav class="navbar orange lighten-1">
+    <nav class="navbar grey lighten-5">
         <div class="nav-wrapper">
             <div class="navbar-left">
                 <a href="#" @click.prevent="$emit('sidebarToggle')" >
                     <i class="material-icons black-text">dehaze</i>
                 </a>
-                <span class="black-text">{{data | date('datetime')}}</span>
+                <span class="black-text datetimer">{{data | date('datetime')}}</span>
             </div>
 
-            <ul class="right hide-on-small-and-down">
+            <ul class="right hide-on-small-and-down__">
                 <li>
                     <a
                             class="dropdown-trigger black-text"
@@ -23,13 +23,13 @@
                     <ul id='dropdown' class='dropdown-content'>
                         <li>
                             <router-link to="/profile" class="black-text">
-                                <i class="material-icons">account_circle</i>Профиль
+                                <i class="material-icons">account_circle</i>{{'profile' | localize}}
                             </router-link>
                         </li>
                         <li class="divider" tabindex="-1"></li>
                         <li>
                             <a href="#" class="black-text" @click.prevent="logout">
-                                <i class="material-icons">assignment_return</i>Выйти
+                                <i class="material-icons">assignment_return</i>{{'logout' | localize}}
                             </a>
                         </li>
                     </ul>
@@ -78,5 +78,16 @@
 </script>
 
 <style lang="scss" scoped>
+    .navbar { box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.07), 0 1px 5px 0 rgba(0,0,0,0.1); position: fixed }
+
+    @media (max-width: 479px) {
+        .navbar {
+            padding-right: 5px;
+        }
+        .datetimer {
+            display: none;
+        }
+    }
+
 
 </style>

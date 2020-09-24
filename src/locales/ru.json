@@ -35,6 +35,7 @@
   "categoryName": "Название",
 
   "limit": "Лимит",
+
   "registerTitle": "Зарегистрироваться",
   "ImAgree": "Я согласен с правилами",
   "haveAccount": "Уже есть аккаунт?",
@@ -45,6 +46,9 @@
   "register": "Зарегистрироваться",
   "profileTitle": "Профиль",
   "name": "Имя",
+
+  "logout": "Выйти",
+  "profile": "Профиль",
 
   "message_EnterName": "Введите имя",
   "message_EnterYourName": "Введите ваше имя",

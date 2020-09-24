@@ -43,6 +43,8 @@
   "register": "Register now",
   "profileTitle": "Profile",
   "name": "Name",
+  "logout": "Logout",
+  "profile": "Profile",
 
   "message_EnterName": "Enter your name",
   "message_EnterYourName": "enter your name",
