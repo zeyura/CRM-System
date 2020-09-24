@@ -62,5 +62,7 @@
   "menu_History": "History",
   "menu_Planning": "Planning",
   "menu_NewRecord": "New Record",
-  "menu_Categories": "Categories"
+  "menu_Categories": "Categories",
+
+  "lang": "en"
 }

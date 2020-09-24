@@ -39,9 +39,16 @@
 <script>
     import {mapGetters, mapActions} from 'vuex'
     import {required} from 'vuelidate/lib/validators'
-    //import messages from '@/utilites/messages'
     export default {
         name: "profile",
+        metaInfo() { // https://github.com/nuxt/vue-meta
+            return {
+                title: this.$title('profileTitle'),
+                htmlAttrs: {
+                    lang: this.$lang('lang')
+                }
+            }
+        },
         data: () => ({
             name: '',
             isLocsleRU: true,
