@@ -39,6 +39,14 @@
 <script>
     export default {
         name: "detail-record",
+        metaInfo() { // vue-meta plugin
+            return {
+                title: this.$title('detailTitle'),
+                htmlAttrs: {
+                    lang: this.$lang('lang')
+                }
+            }
+        },
         data: () => ({
             loading: true,
             record: null,

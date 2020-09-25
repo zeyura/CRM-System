@@ -61,7 +61,6 @@
                         type="submit"
                 >
                     {{'btn_signUp' | localize}}
-                    <i class="material-icons right">send</i>
                 </button>
             </div>
 
@@ -78,6 +77,14 @@
     import {email, required, minLength} from 'vuelidate/lib/validators'
     export default {
         name: "register",
+        metaInfo() { // vue-meta plugin
+            return {
+                title: this.$title('registerTitle'),
+                htmlAttrs: {
+                    lang: this.$lang('lang')
+                }
+            }
+        },
         data: () => ({
             email: '',
             password: '',

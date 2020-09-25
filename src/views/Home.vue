@@ -33,6 +33,14 @@
 
     export default {
         name: 'Home',
+        metaInfo() { // vue-meta plugin
+            return {
+                title: this.$title('homeTitle'),
+                htmlAttrs: {
+                    lang: this.$lang('lang')
+                }
+            }
+        },
         components: {
             HomeBill, HomeCurrency
         },

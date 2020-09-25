@@ -95,6 +95,14 @@
     import {mapGetters} from 'vuex'
     export default {
         name: "record",
+        metaInfo() { // vue-meta plugin
+            return {
+                title: this.$title('recordTitle'),
+                htmlAttrs: {
+                    lang: this.$lang('lang')
+                }
+            }
+        },
         data: () => ({
             categories: [],
             loading: true,

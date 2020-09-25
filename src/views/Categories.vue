@@ -37,6 +37,14 @@
     import CategoryEdit from '@/components/CategoryEdit'
     export default {
         name: "categories",
+        metaInfo() { // vue-meta plugin
+            return {
+                title: this.$title('categoriesTitle'),
+                htmlAttrs: {
+                    lang: this.$lang('lang')
+                }
+            }
+        },
         data: () => ({
             categories: [],
             loading: true,

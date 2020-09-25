@@ -32,6 +32,14 @@
     import currencyFilter from '@/filters/currency.filter'
     export default {
         name: "planning",
+        metaInfo() { // vue-meta plugin
+            return {
+                title: this.$title('planningTitle'),
+                htmlAttrs: {
+                    lang: this.$lang('lang')
+                }
+            }
+        },
         data: () => ({
             loading: true,
             categories: [],

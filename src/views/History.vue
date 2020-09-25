@@ -46,6 +46,14 @@
 
     export default {
         name: "history",
+        metaInfo() { // vue-meta plugin
+            return {
+                title: this.$title('historyTitle'),
+                htmlAttrs: {
+                    lang: this.$lang('lang')
+                }
+            }
+        },
         components: { HistoryTable },
         mixins: [PaginationMixin],
         extends: Pie,

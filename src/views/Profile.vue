@@ -41,7 +41,7 @@
     import {required} from 'vuelidate/lib/validators'
     export default {
         name: "profile",
-        metaInfo() { // https://github.com/nuxt/vue-meta
+        metaInfo() { // vue-meta plugin
             return {
                 title: this.$title('profileTitle'),
                 htmlAttrs: {

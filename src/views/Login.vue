@@ -41,7 +41,6 @@
                         type="submit"
                 >
                     {{'btn_enter' | localize}}
-                    <i class="material-icons right">send</i>
                 </button>
             </div>
 
@@ -60,6 +59,14 @@
 
     export default {
         name: "login",
+        metaInfo() { // vue-meta plugin
+            return {
+                title: this.$title('loginTitle'),
+                htmlAttrs: {
+                    lang: this.$lang('lang')
+                }
+            }
+        },
         data: () => ({
             email: '',
             password: ''
