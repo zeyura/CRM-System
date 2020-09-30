@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 
 export default {
     state: {
-
+        categories: []
     },
     actions: {
         async createCategory({commit, dispatch}, {title, limit}) {
@@ -33,7 +33,9 @@ export default {
                 const categories = (await firebase.database().ref(`/users/${uid}/categories`).once('value')).val() || {};
                 // categories -  у нас объект со страшными ключами категорий, трансформируем его ))
                 // ----  2 Вариант -------  Лаконичней  не так ли ))  ------
-                return Object.keys(categories).map(key => ({...categories[key], id: key}));
+                const catArray = Object.keys(categories).map(key => ({...categories[key], id: key}));
+                commit('setCategories', catArray);
+                return catArray;
             }
             catch (e) {
                 commit('setError', e); // обработчик ошибок в store.js
@@ -55,9 +57,15 @@ export default {
 
     },
     mutations: {
+        setCategories(state, categories) {
+            state.categories = categories;
+        },
 
+        clearcategories(state) {
+            state.categories = [];
+        }
     },
     getters: {
-
+        categories: s => s.categories,
     }
 }

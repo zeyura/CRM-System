@@ -24,10 +24,12 @@
   "category": "Category",
   "type": "Type",
   "open": "Open",
+  "remove": "Remove",
   "description": "Description",
 
   "showAll": "Show all",
   "of": "of",
+  "chart-title": "Flow chart by category",
   "addCategory": "Add category",
   "selectCategory": "Select a category",
   "noCategories": "No categories yet",

@@ -9,6 +9,7 @@
             <th>{{'category' | localize}}</th>
             <th>{{'type' | localize}}</th>
             <th>{{'open' | localize}}</th>
+            <th>{{'remove' | localize}}</th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,15 @@
                         @click="$router.push('/detail-record/' + r.id)"
                 >
                     <i class="material-icons">open_in_new</i>
+                </button>
+            </td>
+            <td>
+                <button
+                        v-tooltip="tooltip"
+                        class="btn-small btn red"
+                        @click="$emit('removeRecord', r.id)"
+                >
+                    <i class="material-icons">close</i>
                 </button>
             </td>
         </tr>

@@ -5,8 +5,13 @@
             <h3>{{'historyTitle' | localize}}</h3>
         </div>
 
-        <div class="history-chart" v-if="records.length">
-            <canvas ref="canvas"></canvas>
+        <div class="chart-wrapper" :class="{'hide': !isOutcome}">
+            <div class="page-subtitle" >
+                <h5 class="center">{{'chart-title' | localize}}</h5>
+            </div>
+            <div class="history-chart" >
+                <canvas ref="canvas"></canvas>
+            </div>
         </div>
 
         <section>
@@ -16,6 +21,7 @@
             <HistoryTable
                 v-else
                 :records='items'
+                @removeRecord="removeRecord"
             />
 
             <Paginate
@@ -31,7 +37,7 @@
             ></Paginate>
 
             <div v-if="!showAllinPage && records.length > pageSize">
-                <a @click.prevent="showAllItems" style="cursor: pointer">{{'showAll' | localize}}</a>
+                <a @click.prevent="showAllItems" style="cursor: pointer">{{'showAll' | localize}}</a> (14)
             </div>
 
         </section>
@@ -60,15 +66,20 @@
         data: () => ({
             loading: true,
             records: [],
+            categories: [],
             income: 'income',
             outcome:'outcome',
             prev: 'Prev',
             next: 'Next'
         }),
         async mounted() {
-            this.records = await this.$store.dispatch('fetchRecords');
-            //const records   = await this.$store.dispatch('fetchRecords');
-            const categories = await this.$store.dispatch('fetchCategories');
+            if( this.$store.getters.records.length ) {
+                this.records = this.$store.getters.records;
+            } else {
+                this.records = await this.$store.dispatch('fetchRecords');
+            }
+
+            this.categories = await this.$store.dispatch('fetchCategories');
 
             this.loading = false;
 
@@ -79,10 +90,26 @@
                 this.next = 'Вперед'
             }
 
-            this.setup(categories);
+            if( this.records.length ) this.setup(this.categories)
 
         },
+        computed: {
+          isOutcome() {
+              return this.records.some(c => c.type === 'outcome');
+          }
+        },
         methods: {
+            async removeRecord(id) {
+                const res = await this.$store.dispatch('removeRecord', id);
+                if(!res) this.getRecords();
+            },
+            getRecords() {
+                this.records = this.$store.getters.records;
+                if( this.records.length ) this.setup(this.categories);
+            },
+            getCategories() {
+                this.categories = this.$store.getters.categories;
+            },
             setup(categories) {
                 this.setupPagination(this.records.map(record => {
                     return {

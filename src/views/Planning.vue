@@ -9,7 +9,7 @@
         <loader v-if="loading" />
         <p class="center" v-else-if="!categories.length">{{'noCategories' | localize}}. <router-link to="/categories">{{'addCategory' | localize}}</router-link> </p>
         <section v-else>
-            <div v-for="c of categories" :key="c.id">
+            <div v-for="c of Categories" :key="c.id">
                 <p>
                     <strong>{{c.title}}</strong>
                     {{c.spend | currency}} {{'of' | localize}} {{c.limit | currency}}
@@ -42,16 +42,28 @@
         },
         data: () => ({
             loading: true,
-            categories: [],
+            Categories: [],
             Locale: ''
         }),
         async mounted() {
-              const records    = await this.$store.dispatch('fetchRecords');
-              const categories = await this.$store.dispatch('fetchCategories');
+            let records = [], categories = [];
+            if( this.records.length ) {
+                records = this.records;
+            } else {
+                records = await this.$store.dispatch('fetchRecords');
+            }
 
-              this.Locale = this.info.locale;
+            if( this.categories.length ) {
+                categories = this.categories;
+            } else {
+                categories = await this.$store.dispatch('fetchRecords');
+            }
 
-              this.categories  = categories.map( c => {
+           // const categories = await this.$store.dispatch('fetchCategories');
+
+            this.Locale = this.info.locale;
+
+            this.Categories  = categories.map( c => {
                  const spend = records
                      .filter(r => r.categoryID === c.id)
                      .filter(r => r.type === 'outcome')
@@ -82,10 +94,10 @@
                   }
               });
 
-              this.loading = false;
+            this.loading = false;
         },
         computed: {
-            ...mapGetters(['info']), // get Users Info from Firebase
+            ...mapGetters(['info', 'records', 'categories']), // get Info from Firebase
         },
 
     }
