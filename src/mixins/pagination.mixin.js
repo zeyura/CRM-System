@@ -8,7 +8,7 @@ import _ from 'lodash'
 export default {
     data: () => ({
         page: 1,// current page
-        pageSize: 5, // items per page
+        pageSize: 10, // items per page
         pageCount: 0,//
         allItems: [],// тут будут подмассивы по pageSize элементов )
         items: [],   // items for Display

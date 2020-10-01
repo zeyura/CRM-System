@@ -1,18 +1,18 @@
 <template>
 
-    <table>
+    <table class="highlight striped" :class="{'sort-ask': sortAsk, 'sort-desk': !sortAsk, 'transed': transit}">
         <thead>
         <tr>
             <th>#</th>
-            <th>{{'sum' | localize}}</th>
-            <th>{{'date' | localize}}</th>
-            <th>{{'category' | localize}}</th>
-            <th>{{'type' | localize}}</th>
+            <th class="hoverEnb" @click="sorter(0)">{{'sum' | localize}} <span :class="{active: sortNumer===0}"></span></th>
+            <th class="hoverEnb" @click="sorter(1)">{{'date' | localize}} <span :class="{active: sortNumer===1}"></span></th>
+            <th class="hoverEnb" @click="sorter(2)">{{'category' | localize}} <span :class="{active: sortNumer===2}"></span></th>
+            <th class="hoverEnb" @click="sorter(3)">{{'type' | localize}} <span :class="{active: sortNumer===3}"></span></th>
             <th>{{'open' | localize}}</th>
             <th>{{'remove' | localize}}</th>
         </tr>
         </thead>
-        <tbody>
+        <transition-group name="flip-list" tag="tbody">
         <tr v-for="(r,i) in records" :key="r.id">
             <td>{{i+1}}</td>
             <td>{{r.amount | currency}}</td>
@@ -40,7 +40,7 @@
                 </button>
             </td>
         </tr>
-        </tbody>
+        </transition-group>
     </table>
 
 </template>
@@ -52,11 +52,18 @@
             records: {
                 required: true,
                 type: Array
+            },
+            transit: {
+                required: true,
+                type: Boolean
             }
         },
         data: () => ({
             tooltip: '',
             tooltipDel: '',
+
+            sortNumer: 1,
+            sortAsk: true,
         }),
         created() {
             if( this.$store.getters.info.locale === 'ru-RU' ) {
@@ -67,11 +74,82 @@
                 this.tooltip = 'Viewing a recording';
                 this.tooltipDel = 'Remove record';
             }
+
+            this.sorter( this.sortNumer )
+        },
+        methods: {
+            sorter(n) {
+                if(n === this.sortNumer) {
+                    if(this.sortAsk) this.sortAsk = false;
+                    else this.sortAsk = true;
+                } else {
+                    this.sortNumer = n;
+                }
+                this.$emit('sort',this.sortNumer,this.sortAsk);
+            },
+
         }
 
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    table {
+
+        th {
+            cursor: default;
+            white-space: nowrap;
+
+            &.hoverEnb {
+
+                &:hover {
+                    background-color: #f6f6f7;
+                    cursor: pointer;
+                }
+
+                span {
+                    display: inline-block;
+                    vertical-align: top;
+                    visibility: hidden;
+
+                    &:before {
+                        content: '';
+                        border: 5px solid;
+                        border-color: transparent;
+                        border-bottom-color: #444;
+                        position: relative;
+                        bottom: 11px;
+                        left: 2px;
+                    }
+
+                    &.active {
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+
+        &.sort-desk {
+            th {
+
+                &.hoverEnb {
+
+                    span {
+
+                        &:before {
+                            border-color: transparent;
+                            border-top-color: #444;
+                            top: 14px;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    .transed .flip-list-move {
+        transition: transform .25s;
+    }
 
 </style>

@@ -21,7 +21,9 @@
             <HistoryTable
                 v-else
                 :records='items'
+                :transit="records.length < pageSize + 1"
                 @removeRecord="removeRecord"
+                @sort="recordsSort"
             />
 
             <Paginate
@@ -65,6 +67,7 @@
         extends: Pie,
         data: () => ({
             loading: true,
+            startLoad: true,
             records: [],
             categories: [],
             income: 'income',
@@ -79,12 +82,6 @@
                 this.records = await this.$store.dispatch('fetchRecords');
             }
 
-            // if( this.$store.getters.categories.length ) {
-            //     this.categories = this.$store.getters.categories;
-            // } else {
-            //     this.categories = await this.$store.dispatch('fetchCategories');
-            // }
-
             this.categories = await this.$store.dispatch('fetchCategories');
 
             this.loading = false;
@@ -96,7 +93,9 @@
                 this.next = 'Вперед'
             }
 
-            if( this.records.length ) this.setup(this.categories)
+            if( this.records.length ) this.setup(this.categories);
+
+            this.startLoad = false;
 
         },
         computed: {
@@ -106,13 +105,43 @@
         },
         methods: {
             async removeRecord(id) {
-                const res = await this.$store.dispatch('removeRecord', id);
-                if(!res) this.getRecords();
+                try {
+                    const res = await this.$store.dispatch('removeRecord', id);
+                    if(!res) this.getRecords();
+
+                    if( this.$store.getters.info.locale === 'ru-RU' ) {
+                        this.$message(`Запись удалена`);
+                    }
+                    if( this.$store.getters.info.locale === 'en-US' ) {
+                        this.$message(`Record removed`);
+                    }
+                } catch (e) {}
             },
             getRecords() {
                 this.records = this.$store.getters.records;
                 if( this.records.length ) this.setup(this.categories);
             },
+
+            recordsSort(numer,type) {
+                this.records.sort( (a,b) => {
+                   if(numer === 0) { // по сумме
+                        if(type) return +a.amount - +b.amount;
+                        else return +b.amount - +a.amount;
+                   } else if(numer === 1) { // по дате
+                       if(type) return a.date > b.date ? 1 : -1;
+                       else return b.date > a.date ? 1 : -1;
+                   } else if(numer === 2) { // по категории
+                       if(type) return a.categoryID > b.categoryID ? 1 : -1;
+                       else return b.categoryID > a.categoryID ? 1 : -1;
+                   } else if(numer === 3) { // по типу
+                       if(type) return a.type > b.type ? 1 : -1;
+                       else return b.type > a.type ? 1 : -1;
+                   }
+                });
+
+                if( this.records.length ) this.setup(this.categories);
+            },
+
             setup(categories) {
                 this.setupPagination(this.records.map(record => {
                     return {
@@ -126,7 +155,7 @@
 
                 // https://www.chartjs.org/docs/latest/charts/doughnut.html#styling
                 //   https://vue-chartjs.org/ru/guide/
-                this.renderChart(
+                if(this.startLoad) this.renderChart(
                     {
                         //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                         labels: categories.map(c => c.title),
