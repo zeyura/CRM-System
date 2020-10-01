@@ -37,7 +37,7 @@
             ></Paginate>
 
             <div v-if="!showAllinPage && records.length > pageSize">
-                <a @click.prevent="showAllItems" style="cursor: pointer">{{'showAll' | localize}}</a> (14)
+                <a @click.prevent="showAllItems" style="cursor: pointer">{{'showAll' | localize}} {{records.length}}</a>
             </div>
 
         </section>
@@ -79,6 +79,12 @@
                 this.records = await this.$store.dispatch('fetchRecords');
             }
 
+            // if( this.$store.getters.categories.length ) {
+            //     this.categories = this.$store.getters.categories;
+            // } else {
+            //     this.categories = await this.$store.dispatch('fetchCategories');
+            // }
+
             this.categories = await this.$store.dispatch('fetchCategories');
 
             this.loading = false;
@@ -106,9 +112,6 @@
             getRecords() {
                 this.records = this.$store.getters.records;
                 if( this.records.length ) this.setup(this.categories);
-            },
-            getCategories() {
-                this.categories = this.$store.getters.categories;
             },
             setup(categories) {
                 this.setupPagination(this.records.map(record => {
@@ -177,9 +180,6 @@
                 );
                 //renderChart END
             }
-        },
-        created() {
-
         }
 
     }

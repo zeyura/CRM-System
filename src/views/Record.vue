@@ -3,6 +3,7 @@
     <div>
         <div class="page-title">
             <h3>{{'recordTitle' | localize}}</h3>
+            <h4 v-if="recordsCount"><small>{{'total' | localize}} {{recordsCount}}</small></h4>
         </div>
 
         <loader v-if="loading" />
@@ -125,6 +126,10 @@
                 this.Categories = await this.$store.dispatch('fetchCategories');
             }
 
+            if( !this.recordsCount ) {
+                await this.$store.dispatch('fetchRecords');
+            }
+
             this.loading = false;
             setTimeout(() => {
                 this.select = M.FormSelect.init(this.$refs.select);
@@ -137,7 +142,7 @@
 
         },
         computed: {
-            ...mapGetters(['info', 'categories']),
+            ...mapGetters(['info', 'categories', 'recordsCount']),
             canCreateRecord() {
                 if( this.radioType === 'income' ) {
                     return true;

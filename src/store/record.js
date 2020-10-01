@@ -56,6 +56,7 @@ export default {
     mutations: {
         setRecords(state, records) {
             state.records = records;
+           // console.log(state.records)
         },
         addRecord(state, record) {
             state.records.push(record);
@@ -71,6 +72,6 @@ export default {
     },
     getters: {
         records: s => s.records,
-
+        recordsCount: s => s.records.length,
     }
 }
