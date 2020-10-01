@@ -57,8 +57,12 @@
             title: {required},
             limit: {minValue: minValue(100)} // min 1 RUB
         },
-        mounted() {
+        async mounted() {
             this.Locale = this.$store.getters.info.locale;
+            if(!this.Locale) {
+                await this.$store.dispatch('fetchInfo');
+                this.Locale = this.$store.getters.info.locale;
+            }
             M.updateTextFields();  // апдейтим чтоб не накладівались плейсхолдеры и титлы в инпутах )
         },
         methods: {
@@ -69,6 +73,16 @@
                     return
                 }
 
+                const allCats = await this.$store.dispatch('fetchCategories');
+                if(allCats.some(c => c.title === this.title)) {
+                    if( this.Locale === 'ru-RU' ) {
+                        this.$message('Категория уже существует');
+                    } else if( this.Locale === 'en-US' ) {
+                        this.$message('Category already exists');
+                    }
+                    return;
+                }
+
                 try {
                     const category = await this.$store.dispatch('createCategory', {
                         title: this.title,
@@ -77,11 +91,7 @@
                     this.title = '';
                     this.limit = 100;
                     this.$v.$reset(); // сбросили состояние формы   для валидатора
-                    if( this.Locale === 'ru-RU' ) {
-                        this.$message('Категория была создана');
-                    } else if( this.Locale === 'en-US' ) {
-                        this.$message('Category was created');
-                    }
+
                     this.$emit('created', category);
 
                    // this.$router.push('/')

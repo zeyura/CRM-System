@@ -10,12 +10,14 @@
   "profileTitle": "Profile",
   "detailTitle": "Recording details",
 
+  "consumptionCategory": "consumption by category",
   "billValute": "Currency account",
   "exchangeRates": "Exchange rates",
   "valute": "Currency",
   "rate": "Rate",
   "noRecords": "No entries yet",
   "addRecords": "Add a note",
+  "imSure": "I'm sure",
 
   "income": "Income",
   "outcome": "Outcome",

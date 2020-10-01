@@ -2,8 +2,8 @@
 
     <div>
         <div class="page-title">
-            <h3>{{'planningTitle' | localize}}</h3>
-            <h4>{{info.bill | currency('RUB')}}</h4>
+            <h3>{{'planningTitle' | localize}} <small>({{'consumptionCategory' | localize}})</small></h3>
+            <h4 class="currency-header">{{info.bill | currency('RUB')}}</h4>
         </div>
 
         <loader v-if="loading" />
@@ -56,7 +56,7 @@
             if( this.categories.length ) {
                 categories = this.categories;
             } else {
-                categories = await this.$store.dispatch('fetchRecords');
+                categories = await this.$store.dispatch('fetchCategories');
             }
 
            // const categories = await this.$store.dispatch('fetchCategories');
@@ -77,7 +77,7 @@
 
                  const tooltipDiff = c.limit - spend;
 
-                  let tooltip = ''
+                  let tooltip = '';
 
                   if( this.Locale === 'ru-RU' ) {
                       tooltip = `${tooltipDiff < 0 ? 'Превышение на' : 'Осталось'} ${currencyFilter(Math.abs(tooltipDiff))}`;
@@ -104,5 +104,13 @@
 </script>
 
 <style scoped>
+    @media (max-width: 900px) {
+        .page-title {
+            display: block;
+        }
+        .currency-header {
+            margin: 18px 0 8px;
+        }
 
+    }
 </style>

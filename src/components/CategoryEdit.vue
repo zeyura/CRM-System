@@ -24,6 +24,8 @@
                         type="text"
                         v-model="title"
                         :class="{invalid: $v.title.$dirty && !$v.title.required }"
+                        @change="isSomeChanges"
+                        @input="isSomeChanges"
                 >
                 <label for="categ-create-name">{{'categoryName' | localize}}</label>
                 <span class="helper-text invalid"
@@ -39,6 +41,8 @@
                         type="number"
                         v-model.number="limit"
                         :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
+                        @change="isSomeChanges"
+                        @input="isSomeChanges"
                 >
                 <label for="categ-create-limit">{{'limit' | localize}}</label>
                 <span class="helper-text invalid"
@@ -48,7 +52,18 @@
                 </span>
             </div>
 
-            <button class="btn waves-effect waves-light" type="submit">
+            <button class="waves-effect waves-light btn red" v-if="!canDelete" type="button"
+                    @click="canDelete = true"
+                    style="margin-right: 20px; margin-bottom: 20px">
+                {{'remove' | localize}}
+            </button>
+            <button class="waves-effect waves-light btn red" v-else  type="button"
+                    @click='delCategory'
+                    style="margin-right: 20px; margin-bottom: 20px">
+                {{'imSure' | localize}}
+            </button>
+
+            <button class="btn waves-effect waves-light" :class="{'disabled': submitDisabled}" type="submit" style="margin-right: 20px; margin-bottom: 20px" >
                 {{'btn_update' | localize}}
             </button>
         </form>
@@ -62,10 +77,14 @@
         name: "category-edit",
         props: ['categories'],
         data: () => ({
+            submitDisabled: true,
+            canDelete: false,
             current: null,
             select: null,
             title: '',
+            startTitle:'',
             limit: 100,
+            startLimit: '',
             Locale: ''
         }),
         validations: { // после установки vuelidate /  npm install vuelidate --save
@@ -75,15 +94,13 @@
         watch: {
             current(catID) {
                 const {title, limit} = this.categories.find( c => c.id === catID);
-                this.title = title;
-                this.limit = limit;
+                this.title = this.startTitle = title;
+                this.limit = this.startLimit = limit;
+                this.canDelete = false
             }
         },
         created() {
-            const {id, title, limit} = this.categories[0];
-            this.current = id;
-            this.title   = title;
-            this.limit   = limit;
+            this.startSettings();
         },
         mounted() {
             this.Locale = this.$store.getters.info.locale;
@@ -91,12 +108,39 @@
             M.updateTextFields();
         },
         methods: {
+            startSettings() {
+                const {id, title, limit} = this.categories[0];
+                this.current = id;
+                this.title   = this.startTitle = title;
+                this.limit   = this.startLimit = limit;
+            },
+            isSomeChanges() {
+                if(this.title === this.startTitle && this.limit === this.startLimit ) this.submitDisabled = true;
+                else this.submitDisabled = false;
+            },
+            async delCategory() {
+                try{
+                    const res = await this.$store.dispatch('deleteCategory', this.current);
+
+                    if( this.Locale === 'ru-RU' ) {
+                        this.$message('Категория удалена');
+                    } else if( this.Locale === 'en-US' ) {
+                        this.$message('Category removed');
+                    }
+
+                    this.$emit('deleted', this.current);
+
+                } catch(e) {}
+            },
             async submitHandler() {
 
                 if(this.$v.$invalid) { // if Form is in Invalid
                     this.$v.$touch();
                     return
                 }
+                if(this.title === this.startTitle && this.limit === this.startLimit ) return;
+
+                this.submitDisabled = false;
 
                 try {
                     const categoryData = {
@@ -106,6 +150,7 @@
                     };
 
                     await this.$store.dispatch('updateCategory', categoryData);
+
                     if( this.Locale === 'ru-RU' ) {
                         this.$message('Категория успешно обновлена');
                     } else if( this.Locale === 'en-US' ) {

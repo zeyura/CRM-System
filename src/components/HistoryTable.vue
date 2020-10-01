@@ -32,7 +32,7 @@
             </td>
             <td>
                 <button
-                        v-tooltip="tooltip"
+                        v-tooltip="tooltipDel"
                         class="btn-small btn red"
                         @click="$emit('removeRecord', r.id)"
                 >
@@ -55,11 +55,18 @@
             }
         },
         data: () => ({
-            tooltip: ''
+            tooltip: '',
+            tooltipDel: '',
         }),
         created() {
-            if( this.$store.getters.info.locale === 'ru-RU' ) this.tooltip = 'Просмотр записи';
-            if( this.$store.getters.info.locale === 'en-US' ) this.tooltip = 'Viewing a recording';
+            if( this.$store.getters.info.locale === 'ru-RU' ) {
+                this.tooltip = 'Просмотр записи';
+                this.tooltipDel = 'Удалить запись';
+            }
+            if( this.$store.getters.info.locale === 'en-US' ) {
+                this.tooltip = 'Viewing a recording';
+                this.tooltipDel = 'Remove record';
+            }
         }
 
     }

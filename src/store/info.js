@@ -37,6 +37,5 @@ export default {
     },
     getters: {
         info: s => s.info,
-
     }
 }

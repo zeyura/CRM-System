@@ -10,6 +10,7 @@
   "loginTitle": "Войти в систему",
   "detailTitle": "Запись детально",
 
+  "consumptionCategory": "расход по категориям",
   "billValute": "Счет в валюте",
   "exchangeRates": "Курс валют",
   "valute": "Валюта",
@@ -24,6 +25,7 @@
   "type": "Тип",
   "open": "Открыть",
   "remove": "Удалить",
+  "imSure": "Я уверен(а)",
   "showAll": "Показать все",
   "description": "Описание",
   "of": "из",

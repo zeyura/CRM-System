@@ -6,12 +6,12 @@
         </div>
 
         <loader v-if="loading" />
-        <p class="center" v-else-if="!categories.length">{{'noCategories' | localize}}. <router-link to="/categories">{{'addCategory' | localize}}</router-link> </p>
+        <p class="center" v-else-if="!Categories.length">{{'noCategories' | localize}}. <router-link to="/categories">{{'addCategory' | localize}}</router-link> </p>
         <form v-else class="form" @submit.prevent="submitHandler">
             <div class="input-field" >
                 <select ref="select" v-model="category">
                     <option
-                            v-for="cat in categories"
+                            v-for="cat in Categories"
                             :key="cat.id"
                             :value="cat.id"
                     >
@@ -104,7 +104,7 @@
             }
         },
         data: () => ({
-            categories: [],
+            Categories: [],
             loading: true,
             category: null,
             radioType: 'income',
@@ -119,8 +119,11 @@
         async mounted() {
             this.Locale = this.info.locale;
 
-            this.categories = await this.$store.dispatch('fetchCategories');
-           //console.log( this.categories )
+            if( this.categories.length ) {
+                this.Categories = this.categories;
+            } else {
+                this.Categories = await this.$store.dispatch('fetchCategories');
+            }
 
             this.loading = false;
             setTimeout(() => {
@@ -128,13 +131,13 @@
                 M.updateTextFields();
             }, 0);
 
-            if( this.categories.length ) {
-                this.category = this.categories[0].id;
+            if( this.Categories.length ) {
+                this.category = this.Categories[0].id;
             }
 
         },
         computed: {
-            ...mapGetters(['info']),
+            ...mapGetters(['info', 'categories']),
             canCreateRecord() {
                 if( this.radioType === 'income' ) {
                     return true;
@@ -188,7 +191,6 @@
 
             }
         },
-
         destroyed() {
             if( this.select && this.select.destroy) {
                 this.select.destroy();
