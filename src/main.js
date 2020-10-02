@@ -13,8 +13,11 @@ import Loader from '@/components/app/Loader'
 import tooltipDirective from '@/directives/tooltip'
 import Paginate from 'vuejs-paginate'
 
+import VueSlider from 'vue-slider-component' // https://nightcatsama.github.io/vue-slider-component/
+
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
+import 'vue-slider-component/theme/antd.css'
 
 ///  FIREBASE  Import
 import firebase from 'firebase/app'
@@ -37,6 +40,7 @@ Vue.directive('tooltip', tooltipDirective);
 
 Vue.component('Loader', Loader);
 Vue.component('Paginate', Paginate);
+Vue.component('VueSlider', VueSlider);
 
 /// --  https://www.youtube.com/watch?v=CTLonYohENw&list=PLqKQF2ojwm3njNpksFCi8o-_c-9Vva_W0&index=8  - - -
 // Your web app's Firebase configuration

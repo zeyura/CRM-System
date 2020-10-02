@@ -49,6 +49,13 @@ button:focus {
 
 .spinner-blue, .spinner-blue-only { border-color: #5c6bc0;}
 
+.vue-slider-process {
+    background-color: #5c6bc0!important;
+}
+.vue-slider-dot-handle {
+    border-color: #5c6bc0!important;
+}
+
 .waves-effect {
  transition: .15s ease-out;
 }

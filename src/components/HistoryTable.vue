@@ -15,7 +15,7 @@
         <transition-group name="flip-list" tag="tbody">
         <tr v-for="(r,i) in records" :key="r.id">
             <td>{{i+1}}</td>
-            <td>{{r.amount | currency}}</td>
+            <td class="td-currency" @click="currencyClick(i+1, r.amount)">{{r.amount | currency}} </td>
             <td>{{r.date | date('datetime') }}</td>
             <td>{{r.categoryName}}</td>
             <td>
@@ -77,6 +77,9 @@
 
             this.sorter( this.sortNumer )
         },
+        mounted() {
+
+        },
         methods: {
             sorter(n) {
                 if(n === this.sortNumer) {
@@ -87,6 +90,10 @@
                 }
                 this.$emit('sort',this.sortNumer,this.sortAsk);
             },
+
+            currencyClick(i, sum) {
+                this.$emit('toSum', sum)
+            }
 
         }
 
@@ -144,6 +151,19 @@
                     }
                 }
 
+            }
+        }
+
+        td {
+           cursor: default;
+        }
+
+        .td-currency {
+            &:hover {
+                //background-color: whitesmoke;
+                position: relative;
+                cursor: pointer;
+                color: #e1758c;
             }
         }
     }
