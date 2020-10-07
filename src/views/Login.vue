@@ -1,6 +1,8 @@
 <template>
 
-    <form class="card auth-card" @submit.prevent="submitHandler">
+    <div>
+
+        <form class="card auth-card" @submit.prevent="submitHandler">
         <div class="card-content">
             <span class="card-title">{{'loginTitle' | localize}}</span>
             <div class="input-field">
@@ -51,6 +53,13 @@
         </div>
     </form>
 
+        <div class="loginBtns">
+            <button class="loginGoogle" @click="googleAuth">Google</button>
+            <button class="loginFacebook" @click="facebookAuth">Facebook</button>
+        </div>
+
+    </div>
+
 </template>
 
 <script>
@@ -84,6 +93,18 @@
 
         },
         methods: {
+            async googleAuth() {
+                try {
+                    await this.$store.dispatch('loginGoogle');
+                    this.$router.push('/');
+                } catch (e){}
+            },
+            async facebookAuth() {
+                try {
+                    await this.$store.dispatch('loginFacebook');
+                    this.$router.push('/');
+                } catch (e){}
+            },
             async submitHandler() {
 
                 if(this.$v.$invalid) { // if Form is in Invalid
@@ -112,6 +133,27 @@
 
     .card .card-content .card-title {
         margin-bottom: 25px;
+    }
+
+    .loginBtns {
+        margin: 20px auto;
+        text-align: center;
+
+        button {
+            margin: 0 5px;
+            padding: 4px 7px;
+            border-radius: 0;
+            border: 1px solid #666;
+            color: white;
+            cursor: pointer;
+        }
+
+        .loginGoogle {
+            background-color: #1A73E8
+        }
+        .loginFacebook {
+            background-color: #4267B2;
+        }
     }
 
 </style>
