@@ -16,7 +16,7 @@
 
         <section style="margin-bottom: 50px">
 
-            <div class="vue-slider-wrap">
+            <div class="vue-slider-wrap" v-if="records.length && !loading">
                 <vue-slider
                         ref="slider"
                         v-model="sliderValue"
@@ -36,7 +36,7 @@
                     <span>Фильтр суммы</span>
                     <span>{{sliderMax}} ₽</span>
                 </div>
-                <button class="btn reset-filter-btn waves-effect waves-light" @click="resetFilter">Reset Filter</button>
+                <button class="btn reset-filter-btn waves-effect waves-light" @click="resetFilter">{{'resetFilter' | localize}}</button>
             </div>
 
             <loader v-if="loading" />

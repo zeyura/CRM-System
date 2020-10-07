@@ -9,6 +9,7 @@
   "registerTitle": "Зарегистрироваться",
   "loginTitle": "Войти в систему",
   "detailTitle": "Запись детально",
+  "resetFilter": "Сброс фильтра",
 
   "consumptionCategory": "расход по категориям",
   "billValute": "Счет в валюте",

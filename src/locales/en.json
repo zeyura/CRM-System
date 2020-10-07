@@ -9,6 +9,7 @@
   "loginTitle": "Log In",
   "profileTitle": "Profile",
   "detailTitle": "Recording details",
+  "resetFilter": "Reset filter",
 
   "consumptionCategory": "consumption by category",
   "billValute": "Currency account",

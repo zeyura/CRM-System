@@ -8,7 +8,7 @@
                 <span class="black-text datetimer">{{data | date('datetime')}}</span>
             </div>
 
-            <ul class="right hide-on-small-and-down__">
+            <ul class="right">
                 <li>
                     <a
                             class="dropdown-trigger black-text"
@@ -53,7 +53,8 @@
                hover: false,
                constrainWidth: false,
                inDuration:  100,
-               outDuration: 200
+               outDuration: 200,
+               alignment: 'right'
            });
            this.interval = setInterval(() => {
                this.data = new Date();
@@ -96,6 +97,10 @@
                 width:20px;
             }
         }
+    }
+
+    .dropdown-content {
+        top: 94% !important;min-width: 170px;
     }
 
     @media (max-width: 479px) {
