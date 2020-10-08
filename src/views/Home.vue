@@ -50,17 +50,34 @@
             currency: null
         }),
         async mounted() {
-              this.currency = await this.$store.dispatch('fetchCurrency');
+             // this.currency = await this.$store.dispatch('fetchCurrency');
+
+            // замокали пока,  чтоб не платить провайдеру по  валютам ))
+            this.currency = {
+                "success":true,
+                "base":"EUR",
+                "date": new Date(),
+                "rates":{
+                    "RUB":91.19,
+                    "USD":1.18,
+                    "EUR":1,
+                    "UAH":33.1
+                }
+            };
+
               setTimeout(() => {
                   this.loading  = false;
-              }, 500);
+              }, 400);
         },
         methods: {
             async refresh() {
-                this.loading  = true; this.refreshing = true;
-                this.currency = await this.$store.dispatch('fetchCurrency');
+                this.loading  = true;
+                this.refreshing = true;
+
+               //this.currency = await this.$store.dispatch('fetchCurrency');
                 setTimeout(() => {
-                    this.loading  = false; this.refreshing = false;
+                    this.loading  = false;
+                    this.refreshing = false;
                 }, 200);
             }
         }
