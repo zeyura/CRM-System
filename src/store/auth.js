@@ -22,7 +22,6 @@ export default {
 
             try {
                 const res = await firebase.auth().signInWithPopup(provider);
-
                 const uid = await dispatch('getUid');
                 const name = res.additionalUserInfo.profile.name;
 
@@ -51,7 +50,6 @@ export default {
 
             try {
                 const res = await firebase.auth().signInWithPopup(provider); // no Redirect
-               // console.log(res)
                 const uid = await dispatch('getUid');
                 const name = res.additionalUserInfo.profile.name;
                 const email = res.additionalUserInfo.profile.email;

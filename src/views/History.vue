@@ -162,7 +162,7 @@
                 this.sliderDragging = false;
             },
             sliderError(type, message) {
-                console.log(message)
+               // console.log(message)
             },
             filterRecordsBySum() {
                 if(!this.recordsCopy.length) this.recordsCopy = this.records.slice();
